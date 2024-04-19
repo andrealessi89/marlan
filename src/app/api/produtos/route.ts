@@ -45,7 +45,11 @@ export async function GET(request: NextRequest) {
         const results = await query(sql, parameters);
         return new NextResponse(JSON.stringify(results), {
             status: 200,
-            headers: { "Content-Type": "application/json" }
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+              }
         });
     } catch (error: any) {
         return new NextResponse(JSON.stringify({ message: error.message }), {
