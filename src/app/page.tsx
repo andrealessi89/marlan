@@ -10,7 +10,7 @@ import ModalSub from '@/components/home/ModalSub';
 
 async function fetchProdutos() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const response = await fetch(`${apiUrl}/api/produtos`);
+  const response = await fetch(`${apiUrl}/produtos`);
   if (!response.ok) {
     throw new Error('Erro ao buscar dados');
   }

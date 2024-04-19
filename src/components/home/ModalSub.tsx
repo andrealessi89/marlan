@@ -31,7 +31,7 @@ export default function ModalSub() {
 
         try {
             const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-            const response = await fetch(`${apiUrl}/api/clientes`, {
+            const response = await fetch(`${apiUrl}/clientes`, {
                 
                 method: 'POST',
                 headers: {
