@@ -1,8 +1,11 @@
 // app/api/produtos/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+
 import { query } from '../../../lib/db'; // Ajuste o caminho conforme necessário
 
 export async function GET(request: NextRequest) {
+
+    console.log('request', request);
     // Obtém a URL da requisição
     const url = new URL(request.url);
 
