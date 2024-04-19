@@ -80,7 +80,8 @@ const Cart = () => {
                 <img alt="Product" className="h-10 w-10 rounded-full object-cover" src={item.imagem} />
                 <div>
                   <p className="text-sm font-medium text-gray-900">Ref: {item.referencia} / {item.size}</p>
-                  <p className="text-sm text-gray-500"> R$ {item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).slice(3)}</p>
+                  
+                  <p className="text-sm text-gray-500"> R$ {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(item.preco))}</p>
                   <p className="text-sm text-gray-500">Cor: {item.color}</p>
                   <div className="flex items-center space-x-2">
                     <p className="text-sm text-gray-500">Qtd:</p>
@@ -95,11 +96,11 @@ const Cart = () => {
         </div>
         <div className="mt-4 p-4 bg-white rounded shadow-sm">
           <div className="flex flex-col justify-between space-y-2"> 
-            <span className="text-lg font-medium text-gray-900 text-lg">Preço original: R$ {subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).slice(3)}</span>
+            <span className="text-lg font-medium text-gray-900 text-lg">Preço original: R$ {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(subtotal))}</span>
             {discount > 0 && (
               <>
                 <p className="text-red-500 text-xs">{discountMessage}</p>
-                <span className="text-lg font-medium text-gray-900 text-sm">Preço com desconto: R$ {total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).slice(3)}</span>
+                <span className="text-lg font-medium text-gray-900 text-sm">Preço com desconto: R$ {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(total))}</span>
               </>
             )}
           </div>

@@ -59,21 +59,22 @@ export default function Imprimir() {
                   </td>
                   <td style={{ border: '1px solid black', padding: '8px' }}>{item.color} - Aceita troca: {item.acceptColorChange ? "Sim" : "Não"}</td>
                   <td style={{ border: '1px solid black', padding: '8px', textAlign: 'center' }}>{item.quantity}</td>
-                  <td style={{ border: '1px solid black', padding: '8px' }}>R$ {item.preco.toFixed(2)}</td>
-                  <td style={{ border: '1px solid black', padding: '8px' }}>R$ {(item.preco * item.quantity).toFixed(2)}</td>
+                  
+                  <td style={{ border: '1px solid black', padding: '8px' }}>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(item.preco))}</td>
+                  <td style={{ border: '1px solid black', padding: '8px' }}>R$ {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(item.preco * item.quantity))}</td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
               <tr>
                 <td colSpan={4} style={{ border: '1px solid black', padding: '8px', textAlign: 'right' }}>Preço original:</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>R$ {subtotal.toFixed(2)}</td>
+                <td style={{ border: '1px solid black', padding: '8px' }}>R$ {subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).slice(3)}</td>
               </tr>
               {discount > 0 && (
                 <>
                   <tr>
                     <td colSpan={4} style={{ border: '1px solid black', padding: '8px', textAlign: 'right' }}>{discountMessage}</td>
-                    <td style={{ border: '1px solid black', padding: '8px' }}>R$ {total.toFixed(2)}</td>
+                    <td style={{ border: '1px solid black', padding: '8px' }}>R$ {total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).slice(3)}</td>
                   </tr>
                 </>
               )}

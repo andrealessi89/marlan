@@ -70,7 +70,7 @@ const ProductCard = forwardRef<HTMLElement, ProductCardProps>(
           <p className="text-gray-900 font-bold">
   Preço: 
   <span className="text-green-600 text-xl ml-1">
-    R$ {description.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).slice(3)}
+    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(description.preco))}
   </span>
 </p>
 
