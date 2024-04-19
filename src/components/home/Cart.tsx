@@ -69,6 +69,10 @@ const Cart = () => {
           </Button>
         </SheetClose>
         <h2 className="text-xl font-bold text-gray-900">Sua Lista</h2>
+        <Button asChild className="bg-red-600 text-white hover:bg-red-700 mt-4">
+          <Link href="/imprimir">Imprimir Lista</Link>
+        </Button>
+
         <div className="overflow-y-auto" style={{ flexGrow: 1 }}>
           {cartItems.map((item, index) => (
             <div key={index} className="py-4 flex justify-between items-center border-b border-gray-300">
