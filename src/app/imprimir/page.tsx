@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 import React, { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button"
@@ -65,13 +66,13 @@ export default function Imprimir() {
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan="4" style={{ border: '1px solid black', padding: '8px', textAlign: 'right' }}>Preço original:</td>
+                <td colSpan={4} style={{ border: '1px solid black', padding: '8px', textAlign: 'right' }}>Preço original:</td>
                 <td style={{ border: '1px solid black', padding: '8px' }}>R$ {subtotal.toFixed(2)}</td>
               </tr>
               {discount > 0 && (
                 <>
                   <tr>
-                    <td colSpan="4" style={{ border: '1px solid black', padding: '8px', textAlign: 'right' }}>{discountMessage}</td>
+                    <td colSpan={4} style={{ border: '1px solid black', padding: '8px', textAlign: 'right' }}>{discountMessage}</td>
                     <td style={{ border: '1px solid black', padding: '8px' }}>R$ {total.toFixed(2)}</td>
                   </tr>
                 </>

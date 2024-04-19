@@ -1,7 +1,24 @@
 import React, { createContext, useContext, useState } from 'react';
 
+// Definição da estrutura de dados dos filtros
+type FilterState = {
+    brands: string;
+    articles: string;
+    genders: string;
+    sizes: string;
+};
+
+// Definição do tipo da função para atualizar os filtros
+type HandleFilterChange = (filterType: string, value: string) => void;
+
+// Definição do tipo do contexto
+type FilterContextType = {
+    filters: FilterState;
+    handleFilterChange: HandleFilterChange;
+};
+
 // Estrutura de dados padrão para o contexto
-const defaultContextValue = {
+const defaultContextValue: FilterContextType = {
     filters: {
         brands: '',
         articles: '',
@@ -12,7 +29,7 @@ const defaultContextValue = {
 };
 
 // Criando o contexto com um valor padrão
-const FilterContext = createContext(defaultContextValue);
+const FilterContext = createContext<FilterContextType>(defaultContextValue);
 
 // Hook personalizado para acessar o contexto facilmente
 export function useFilters() {
@@ -21,7 +38,7 @@ export function useFilters() {
 
 // Provedor do contexto
 export function FilterProvider({ children }) {
-    const [filters, setFilters] = useState({
+    const [filters, setFilters] = useState<FilterState>({
         brands: '',
         articles: '',
         genders: '',
@@ -29,7 +46,7 @@ export function FilterProvider({ children }) {
     });
 
     // Função para atualizar os filtros
-    const handleFilterChange = (filterType, value) => {
+    const handleFilterChange: HandleFilterChange = (filterType, value) => {
         setFilters(prev => ({ ...prev, [filterType]: value }));
     };
 

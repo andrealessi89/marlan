@@ -76,7 +76,7 @@ export default function ModalSub() {
                     </div>
                     <div>
                         <Label htmlFor="como_soube">Como soube do bazar?</Label>
-                        <Select id="como_soube" name="como_soube">
+                        <Select name="como_soube">
                             <SelectTrigger>
                                 <SelectValue placeholder="Selecione uma opção" />
                             </SelectTrigger>

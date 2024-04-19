@@ -4,7 +4,16 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input"
 
-function ProductFilter({ onChange, brands, articles, genders, sizes, onClearFilters }) {
+interface ProductFilterProps {
+  onChange: (filterType: string, value: any) => void;
+  brands: any[];
+  articles: any[];
+  genders: any[];
+  sizes: any[];
+  onClearFilters?: () => void; // Tornando opcional com '?'
+}
+
+const ProductFilter: React.FC<ProductFilterProps> = ({ onChange, brands, articles, genders, sizes, onClearFilters }) => {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedArticle, setSelectedArticle] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
@@ -37,7 +46,7 @@ function ProductFilter({ onChange, brands, articles, genders, sizes, onClearFilt
     <div className="space-y-4 ">
       <div>
         <Label htmlFor="brand">Marca</Label>
-        <Select id="brand" value={selectedBrand} onValueChange={value => { setSelectedBrand(value); onChange('brand', value); }}>
+        <Select value={selectedBrand} onValueChange={value => { setSelectedBrand(value); onChange('brand', value); }}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Selecione a marca" />
           </SelectTrigger>
@@ -48,7 +57,7 @@ function ProductFilter({ onChange, brands, articles, genders, sizes, onClearFilt
       </div>
       <div>
         <Label htmlFor="article">Artigo</Label>
-        <Select id="article" value={selectedArticle} onValueChange={value => { setSelectedArticle(value); onChange('article', value); }}>
+        <Select  value={selectedArticle} onValueChange={value => { setSelectedArticle(value); onChange('article', value); }}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Selecione a categoria" />
           </SelectTrigger>
@@ -59,7 +68,7 @@ function ProductFilter({ onChange, brands, articles, genders, sizes, onClearFilt
       </div>
       <div>
         <Label htmlFor="gender">Gênero</Label>
-        <Select id="gender" value={selectedGender} onValueChange={value => { setSelectedGender(value); onChange('gender', value); }}>
+        <Select  value={selectedGender} onValueChange={value => { setSelectedGender(value); onChange('gender', value); }}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Selecione o sexo" />
           </SelectTrigger>
@@ -70,7 +79,7 @@ function ProductFilter({ onChange, brands, articles, genders, sizes, onClearFilt
       </div>
       <div>
         <Label htmlFor="size">Tamanho</Label>
-        <Select id="size" value={selectedSize} onValueChange={value => { setSelectedSize(value); onChange('size', value); }}>
+        <Select  value={selectedSize} onValueChange={value => { setSelectedSize(value); onChange('size', value); }}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Selecione o tamanho" />
           </SelectTrigger>

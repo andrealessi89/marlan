@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import Link from "next/link";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
@@ -16,7 +17,7 @@ function Menu({ onChange, brands, articles, genders, sizes }) {
       </div>
       <SheetTrigger asChild>
         <Button className="md:hidden" variant="ghost">
-          <MenuIcon className="h-6 w-6" />
+          <MenuIcon/>
         </Button>
       </SheetTrigger>
       <SheetContent className="bg-white dark:bg-gray-800 p-4" side="left">

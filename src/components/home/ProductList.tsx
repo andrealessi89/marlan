@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ProductCard from "@/components/home/ProductCard";
 
+
+
 const ProductList = ({ products, filters }) => {
+    
     const [visibleProducts, setVisibleProducts] = useState([]);
     const [loadedItems, setLoadedItems] = useState(12);
-    const observer = useRef();
+    const observer = useRef<IntersectionObserver | null>(null);
     const lastProductRef = useRef();
     const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [totalFilterProduct, setTotalFilterProduct] = useState(0);
@@ -56,6 +59,7 @@ const ProductList = ({ products, filters }) => {
                 observer.current.disconnect();
             }
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visibleProducts.length, products.length, visibleProducts, filters, totalFilterProduct]);
 
     return (
@@ -66,7 +70,6 @@ const ProductList = ({ products, filters }) => {
                     key={product.id}
                     image={product.imagem}
                     description={product}
-                    priceRange={`R$ ${product.preco.toFixed(2)}`}
                 />
             ))}
             {isLoadingMore && <div className="w-full text-center">Carregando...</div>}

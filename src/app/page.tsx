@@ -34,11 +34,11 @@ export default function Page() {
   // Extrair opções de filtros quando os produtos estiverem disponíveis
   useEffect(() => {
     if (products) {
-      const brands = [...new Set(products?.map(product => product.marca))];
-      const articles = [...new Set(products?.map(product => product.artigo))];
-      const genders = [...new Set(products?.map(product => product.genero))];
-      const sizes = [...new Set(products?.flatMap(product => product.tamanho.split(", ")))];
-
+      const brands = Array.from(new Set(products.map(product => product.marca)));
+      const articles = Array.from(new Set(products.map(product => product.artigo)));
+      const genders = Array.from(new Set(products.map(product => product.genero)));
+      const sizes = Array.from(new Set(products.flatMap(product => product.tamanho.split(", "))));
+  
       setFilterOptions({ brands, articles, genders, sizes });
     }
   }, [products]);

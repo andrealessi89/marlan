@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react';
 import { FaTrashAlt, FaShoppingCart } from 'react-icons/fa';
 import { Button } from "@/components/ui/button";
@@ -56,7 +57,7 @@ const Cart = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="icon" onClick={handleCartButtonClick}>
+        <Button onClick={handleCartButtonClick}>
           Ver Carrinho
           <FaShoppingCart className="text-red-600 hover:text-red-700" size={30} />
         </Button>

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react';
 
 function Banner() {
@@ -16,6 +17,7 @@ function Banner() {
     }, 4000); // Muda a mensagem a cada 4 segundos
 
     return () => clearInterval(intervalId); // Limpa o intervalo quando o componente é desmontado
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
