@@ -12,11 +12,11 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-    const { nome, telefone, email } = await request.json();
+    const { nome, telefone, email, cidade, como_soube, newsletter } = await request.json();
     try {
         const result = await query(
-            'INSERT INTO cliente (nome, telefone, email) VALUES (?, ?, ?)',
-            [nome, telefone, email]
+            'INSERT INTO cliente (nome, telefone, email, cidade, como_soube, newsletter) VALUES (?, ?, ?, ?, ?, ?)',
+            [nome, telefone, email, cidade, como_soube, newsletter]
         );
         return new NextResponse(JSON.stringify(result), { status: 200 });
     } catch (error: any) {

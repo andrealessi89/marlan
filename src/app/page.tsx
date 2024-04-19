@@ -6,6 +6,7 @@ import ProductList from "@/components/home/ProductList";
 import Footer from "@/components/home/Footer";
 import Menu from "@/components/home/Menu";
 import Banner from "@/components/home/Banner";
+import ModalSub from '@/components/home/ModalSub';
 
 async function fetchProdutos() {
   const response = await fetch('http://localhost:3000/api/produtos');
@@ -53,41 +54,46 @@ export default function Page() {
 
 
   const handleClearFilters = () => {
-  console.log("Filtros foram limpos!");
-  // Aqui você pode adicionar lógica adicional se necessário
-};
-  
+    console.log("Filtros foram limpos!");
+    // Aqui você pode adicionar lógica adicional se necessário
+  };
+
 
   if (isLoading) return <div>Carregando...</div>;
   if (isError) return <div>Erro: {error.message}</div>;
 
   return (
-    <section className="w-full min-h-screen bg-gray-100 dark:bg-gray-900">
-      <header className="container mx-auto px-4 md:px-6 py-8">
-        <Menu
-          onChange={handleFilterChange}
-          brands={filterOptions.brands}
-          articles={filterOptions.articles}
-          genders={filterOptions.genders}
-          sizes={filterOptions.sizes}
-        />
+    <>
+      <ModalSub />
 
-        <Banner />
-      </header>
-      <main className="container mx-auto px-4 md:px-6 py-8 grid md:grid-cols-[1fr_3fr] gap-8">
-        <aside className="hidden md:block">
-          <ProductFilter
+      <section className="w-full min-h-screen bg-gray-100 dark:bg-gray-900">
+
+        <header className="container mx-auto px-4 md:px-6 py-8">
+          <Menu
             onChange={handleFilterChange}
             brands={filterOptions.brands}
             articles={filterOptions.articles}
             genders={filterOptions.genders}
             sizes={filterOptions.sizes}
-            onClearFilters={handleClearFilters}
           />
-        </aside>
-        <ProductList products={products} filters={filters} />
-      </main>
-      <Footer />
-    </section>
+
+          <Banner />
+        </header>
+        <main className="container mx-auto px-4 md:px-6 py-8 grid md:grid-cols-[1fr_3fr] gap-8">
+          <aside className="hidden md:block">
+            <ProductFilter
+              onChange={handleFilterChange}
+              brands={filterOptions.brands}
+              articles={filterOptions.articles}
+              genders={filterOptions.genders}
+              sizes={filterOptions.sizes}
+              onClearFilters={handleClearFilters}
+            />
+          </aside>
+          <ProductList products={products} filters={filters} />
+        </main>
+        <Footer />
+      </section>
+    </>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaTrashAlt, FaShoppingCart } from 'react-icons/fa';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
-import PrintComponent from './PrintComponent';
+import { Input } from '../ui/input';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -28,16 +28,36 @@ const Cart = () => {
     localStorage.setItem('cartItems', JSON.stringify(newCartItems));
   };
 
-  
+  const updateQuantity = (index, newQuantity) => {
+    let newCartItems = [...cartItems];
+    newCartItems[index].quantity = Number(newQuantity);
+    setCartItems(newCartItems);
+    localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+  };
 
-  const total = cartItems.reduce((acc, item) => acc + item.preco, 0);
+  const calculateTotal = () => {
+    const subtotal = cartItems.reduce((acc, item) => acc + item.preco * item.quantity, 0);
+    let discount = 0;
+    let discountMessage = '';
+    if (subtotal >= 10000) {
+      discount = 0.10; // 10% de desconto
+      discountMessage = 'Você ganhou 10% de desconto por compras acima de R$10.000,00.';
+    } else if (subtotal >= 2000) {
+      discount = 0.05; // 5% de desconto
+      discountMessage = 'Você ganhou 5% de desconto por compras acima de R$2.000,00.';
+    }
+    const total = subtotal - (subtotal * discount);
+    return { subtotal, total, discount, discountMessage };
+  };
+
+  const { subtotal, total, discount, discountMessage } = calculateTotal();
 
   return (
     <Sheet>
       <SheetTrigger asChild>
-      <Button variant="icon" onClick={handleCartButtonClick}>
-            <FaShoppingCart className="text-red-600 hover:text-red-700" size={30} />
-          </Button>
+        <Button variant="icon" onClick={handleCartButtonClick}>
+          Ver Carrinho<FaShoppingCart className="text-red-600 hover:text-red-700" size={30} />
+        </Button>
       </SheetTrigger>
       <SheetContent style={{ maxHeight: '100vh', display: 'flex', flexDirection: 'column' }} className="transition-transform duration-500 ease-in-out transform translate-y-0 bg-white dark:bg-gray-800 shadow-xl rounded-t-lg p-4">
         <SheetClose asChild>
@@ -54,17 +74,22 @@ const Cart = () => {
                 <div className="ml-3">
                   <p className="text-sm font-medium text-gray-900 dark:text-white">Ref: {item.referencia}</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">R$ {item.preco.toFixed(2)}</p>
+                  <p>Cor: {item.color} Quantidade: <Input type="number" value={item.quantity} onChange={(e) => updateQuantity(index, Number(e.target.value))} min="1" /></p>
+                  <p>Troca de cor aceita: {item.acceptColorChange ? "Sim" : "Não"}</p>
                 </div>
               </div>
-              <Button size="sm" variant="outline" onClick={(e) => removeFromCart(index, e)}>
-                Remove
-              </Button>
+              <Button onClick={(e) => removeFromCart(index, e)}>Remove</Button>
             </li>
           ))}
         </div>
         <div className="p-4 bg-white dark:bg-gray-800 shadow-inner">
-          <span className="text-lg font-medium text-gray-900 dark:text-white">Total: R$ {total.toFixed(2)}</span>
-          
+          <span className="text-lg font-medium text-gray-900 dark:text-white">Preço original: R$ {subtotal.toFixed(2)}</span>
+          {discount > 0 && (
+            <>
+              <p className="text-red-500">{discountMessage}</p>
+              <span className="text-lg font-medium text-gray-900 dark:text-white">Preço com desconto: R$ {total.toFixed(2)}</span>
+            </>
+          )}
         </div>
       </SheetContent>
     </Sheet>

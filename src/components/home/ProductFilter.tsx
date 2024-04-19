@@ -2,28 +2,31 @@ import React, { useState } from 'react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
+import { Input } from "@/components/ui/input"
 
-function ProductFilter({ onChange, brands, articles, genders, sizes, onClearFilters  }) {
-
+function ProductFilter({ onChange, brands, articles, genders, sizes, onClearFilters }) {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedArticle, setSelectedArticle] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
-
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   const handleClearFilters = () => {
-    // Chamando onChange para cada filtro com valor vazio ou inicial
     onChange('brand', '');
     onChange('article', '');
     onChange('gender', '');
     onChange('size', '');
+    onChange('minPrice', '');
+    onChange('maxPrice', '');
 
     setSelectedBrand('');
     setSelectedArticle('');
     setSelectedGender('');
     setSelectedSize('');
-    
-    // Se existe uma função extra para limpar filtros, chame-a
+    setMinPrice('');
+    setMaxPrice('');
+
     if (onClearFilters) {
       onClearFilters();
     }
@@ -75,10 +78,41 @@ function ProductFilter({ onChange, brands, articles, genders, sizes, onClearFilt
             {sizes.map(size => <SelectItem key={size} value={size}>{size}</SelectItem>)}
           </SelectContent>
         </Select>
-
-        <Button onClick={handleClearFilters} className="w-full mt-4">Limpar Filtro</Button>
       </div>
-    </div>
+
+
+      <div>
+        <Label htmlFor="minPrice">Preço Mínimo</Label>
+        <Input
+          id="minPrice"
+          value={minPrice}
+          onChange={e => {
+            setMinPrice(e.target.value);
+            onChange('minPrice', e.target.value);
+          }}
+          placeholder="R$ min"
+          className="input-field"
+          type="number"
+          >
+        </Input>
+      </div>
+      <div>
+        <Label htmlFor="maxPrice">Preço Máximo</Label>
+        <Input
+          id="maxPrice"
+          value={maxPrice}
+          onChange={e => {
+            setMaxPrice(e.target.value);
+            onChange('maxPrice', e.target.value);
+          }}
+          placeholder="R$ max"
+          className="input-field"
+          type="number"
+          >
+        </Input>
+      </div>
+      <Button onClick={handleClearFilters} className="w-full mt-4">Limpar Filtro</Button>
+    </div>  
   );
 }
 
