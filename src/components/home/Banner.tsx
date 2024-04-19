@@ -17,7 +17,6 @@ function Banner() {
     }, 4000); // Muda a mensagem a cada 4 segundos
 
     return () => clearInterval(intervalId); // Limpa o intervalo quando o componente é desmontado
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -26,7 +25,7 @@ function Banner() {
         alt="Banner"
         className="w-full object-cover md:rounded-lg md:shadow-lg md:object-cover md:object-center"
         height="200"
-        src="https://images.tcdn.com.br/img/img_prod/1049260/1711972478_bannerdesk.jpg"
+        src="/images/banner.jpg" // Aqui você coloca o caminho relativo à pasta public
         style={{ aspectRatio: "800/200", objectFit: "cover" }}
         width="800"
       />

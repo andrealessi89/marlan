@@ -59,7 +59,7 @@ const Cart = () => {
       <SheetTrigger asChild>
         <Button onClick={handleCartButtonClick}>
           Ver Carrinho
-          <FaShoppingCart className="text-red-600 hover:text-red-700" size={30} />
+          <FaShoppingCart className="" size={30} />
         </Button>
       </SheetTrigger>
       <SheetContent style={{ maxHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#f8f9fa' }} className="shadow-xl rounded-t-lg p-4">
