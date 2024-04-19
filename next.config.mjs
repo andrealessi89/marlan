@@ -1,10 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  webpack: (config, { isServer }) => {
+    // Somente aplica a configuração em builds do lado do cliente
+    if (!isServer) {
+      config.optimization.minimize = false;
+    }
 
-    eslint: {
-        // Ignora os erros do ESLint durante a build de produção
-        ignoreDuringBuilds: true,
-      },
+    return config;
+  },
 };
 
 export default nextConfig;
