@@ -9,7 +9,8 @@ import Banner from "@/components/home/Banner";
 import ModalSub from '@/components/home/ModalSub';
 
 async function fetchProdutos() {
-  const response = await fetch('http://localhost:3000/api/produtos');
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const response = await fetch(`${apiUrl}/api/produtos`);
   if (!response.ok) {
     throw new Error('Erro ao buscar dados');
   }

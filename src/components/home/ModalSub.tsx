@@ -30,7 +30,9 @@ export default function ModalSub() {
         const data = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch('http://localhost:3000/api/clientes/', {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+            const response = await fetch(`${apiUrl}/api/clientes`, {
+                
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
