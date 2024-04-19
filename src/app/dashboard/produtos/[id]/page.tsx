@@ -14,7 +14,9 @@ import { useQuery } from '@tanstack/react-query';
 
 
 async function fetchProdutos(id: number) {
-  const response = await fetch(`http://localhost:3000/api/produtos?id=${id}`);
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const response = await fetch(`${apiUrl}/produtos/produtos?id=${id}`);
   if (!response.ok) {
     throw new Error('Erro ao buscar dados');
   }

@@ -7,7 +7,8 @@ import { columns } from './columns';
 
 // Definição da função fetch fora do componente
 async function fetchProdutos() {
-    const response = await fetch('http://localhost:3000/api/produtos');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const response = await fetch(`${apiUrl}/produtos`);
     if (!response.ok) {
         throw new Error('Erro ao buscar dados');
     }

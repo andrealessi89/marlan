@@ -67,7 +67,13 @@ const ProductCard = forwardRef<HTMLElement, ProductCardProps>(
           <p>Gênero: {description.genero}</p>
           <p>Marca: {description.marca}</p>
           
-          <p className="text-gray-900 font-bold">Preço: <span className="text-green-600 text-xl ml-1">{description.preco}</span></p>
+          <p className="text-gray-900 font-bold">
+  Preço: 
+  <span className="text-green-600 text-xl ml-1">
+    R$ {description.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).slice(3)}
+  </span>
+</p>
+
         </div>
       </div>
       <Button onClick={() => setIsOpen(true)} className="bg-white bg-gradient-to-r hover:from-red-600 hover:to-red-700 text-white rounded-full p-3 absolute bottom-4 right-4 transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl">
@@ -97,6 +103,7 @@ const ProductCard = forwardRef<HTMLElement, ProductCardProps>(
                 ))}
               </SelectContent>
             </Select>
+            <Label htmlFor="quantidade">Quantidade</Label>
             <Input type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min="1" />
             <Label htmlFor="trocaProduto">Aceitar trocar de cor caso não tenha em estoque</Label>
             <Checkbox checked={acceptColorChange} onCheckedChange={handleAcceptColorChange} id="trocaProduto" />

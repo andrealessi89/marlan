@@ -9,9 +9,9 @@ export const authOptions : NextAuthOptions = {
 				email: { label: 'email', type: 'email' },
 				password: { label: 'password', type: 'password' }
 			},
-
 			async authorize(credentials) {
-				const res = await fetch("http://localhost:3000/api/usuarios/login", {
+				const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+				const res = await fetch(`${apiUrl}usuarios/login`, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({

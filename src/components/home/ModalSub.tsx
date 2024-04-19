@@ -88,6 +88,9 @@ export default function ModalSub() {
                                 <SelectItem value="outdoor">Outdoor</SelectItem>
                                 <SelectItem value="banner">Banner</SelectItem>
                                 <SelectItem value="email">Email</SelectItem>
+                                <SelectItem value="email">Carrp de Som</SelectItem>
+                                <SelectItem value="email">Rádio</SelectItem>
+                                <SelectItem value="email">Outros</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>

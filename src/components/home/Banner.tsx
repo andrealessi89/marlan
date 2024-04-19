@@ -6,7 +6,7 @@ function Banner() {
     {__html: "O estoque é limitado e a seleção das peças não garantem estoque"},
     {__html: "<strong>Benefícios do bazar:</strong> nas compras acima de R$ 1.000,00 você concorre à um passaporte para o Beto Carreiro"},
     {__html: "<strong>Benefícios do bazar:</strong> desconto de 5% nas compras acima de R$ 2.000,00"},
-    {__html: "<strong>Benefícios do bazar:</strong> desconto de 10% nas compras acima de R$ 10.000,00"}
+    {__html: "<strong>Benefícios do bazar:</strong> desconto de 10% nas compras acima de R$ 3.000,00"}
   ];
 
   const [currentMessage, setCurrentMessage] = useState(0);

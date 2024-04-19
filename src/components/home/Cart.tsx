@@ -43,7 +43,7 @@ const Cart = () => {
     let discountMessage = '';
     if (subtotal >= 10000) {
       discount = 0.10; // 10% de desconto
-      discountMessage = 'Você ganhou 10% de desconto por compras acima de R$10.000,00.';
+      discountMessage = 'Você ganhou 10% de desconto por compras acima de R$3.000,00.';
     } else if (subtotal >= 2000) {
       discount = 0.05; // 5% de desconto
       discountMessage = 'Você ganhou 5% de desconto por compras acima de R$2.000,00.';
@@ -80,7 +80,7 @@ const Cart = () => {
                 <img alt="Product" className="h-10 w-10 rounded-full object-cover" src={item.imagem} />
                 <div>
                   <p className="text-sm font-medium text-gray-900">Ref: {item.referencia} / {item.size}</p>
-                  <p className="text-sm text-gray-500">R$ {item.preco.toFixed(2)}</p>
+                  <p className="text-sm text-gray-500"> R$ {item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).slice(3)}</p>
                   <p className="text-sm text-gray-500">Cor: {item.color}</p>
                   <div className="flex items-center space-x-2">
                     <p className="text-sm text-gray-500">Qtd:</p>
@@ -94,12 +94,12 @@ const Cart = () => {
           ))}
         </div>
         <div className="mt-4 p-4 bg-white rounded shadow-sm">
-          <div className="flex flex-col justify-between space-y-2">
-            <span className="text-lg font-medium text-gray-900 text-lg">Preço original: R$ {subtotal.toFixed(2)}</span>
+          <div className="flex flex-col justify-between space-y-2"> 
+            <span className="text-lg font-medium text-gray-900 text-lg">Preço original: R$ {subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).slice(3)}</span>
             {discount > 0 && (
               <>
                 <p className="text-red-500 text-xs">{discountMessage}</p>
-                <span className="text-lg font-medium text-gray-900 text-sm">Preço com desconto: R$ {total.toFixed(2)}</span>
+                <span className="text-lg font-medium text-gray-900 text-sm">Preço com desconto: R$ {total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).slice(3)}</span>
               </>
             )}
           </div>
