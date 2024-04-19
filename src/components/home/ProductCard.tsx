@@ -12,11 +12,12 @@ const ProductCard = React.forwardRef(({ image, description }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState('');
+  const [size, setSize] = useState('');
   const [acceptColorChange, setAcceptColorChange] = useState(false);
 
   const handleAddToCart = () => {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const itemToAdd = { ...description, quantity, color, acceptColorChange };
+    const itemToAdd = { ...description, quantity, color, size, acceptColorChange };
     cartItems.push(itemToAdd);
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
@@ -26,6 +27,7 @@ const ProductCard = React.forwardRef(({ image, description }, ref) => {
 
   // Converter a string de cores em uma lista de opções
   const colorOptions = description.cor.split(',').map(cor => cor.trim());
+  const sizeOptions = description.tamanho.split(',').map(tamanho => tamanho.trim());
 
   return (
     <div className="card p-4 hover:shadow-2xl transition-shadow duration-500 ease-in-out relative overflow-hidden bg-white">
@@ -34,9 +36,10 @@ const ProductCard = React.forwardRef(({ image, description }, ref) => {
         <h3 className="text-lg text-gray-900 font-semibold mb-1">{description.nome}</h3>
         <div className="text-gray-700 space-y-1">
           <p>Referência: {description.referencia}</p>
+          <p>Tamanhos: {description.tamanho}</p>
           <p>Gênero: {description.genero}</p>
-          <p>Tamanho: {description.tamanho}</p>
           <p>Marca: {description.marca}</p>
+          
           <p className="text-gray-900 font-bold">Preço: <span className="text-green-600 text-xl ml-1">{description.preco}</span></p>
         </div>
       </div>
@@ -47,8 +50,8 @@ const ProductCard = React.forwardRef(({ image, description }, ref) => {
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogContent>
             <DialogTitle>Adicionar ao carrinho</DialogTitle>
-            <Select defaultValue="" onValueChange={setColor}>
-              <SelectTrigger aria-label="Cor">
+            <Select defaultValue="" onValueChange={setColor} aria-label="Cor">
+              <SelectTrigger>
                 <SelectValue placeholder="Selecione a cor" />
               </SelectTrigger>
               <SelectContent>
@@ -57,12 +60,19 @@ const ProductCard = React.forwardRef(({ image, description }, ref) => {
                 ))}
               </SelectContent>
             </Select>
+            <Select defaultValue="" onValueChange={setSize} aria-label="Tamanho">
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione o tamanho" />
+              </SelectTrigger>
+              <SelectContent>
+                {sizeOptions.map((sizeOption, index) => (
+                  <SelectItem key={index} value={sizeOption}>{sizeOption}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <Input type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min="1" />
-            <Label htmlFor="trocaProduto">Aceito trocar de cor caso não tenha em estoque</Label>
-            <Checkbox checked={acceptColorChange} onCheckedChange={setAcceptColorChange} id="trocaProduto">
-            
-            </Checkbox>
-            
+            <Label htmlFor="trocaProduto">Aceitar trocar de cor caso não tenha em estoque</Label>
+            <Checkbox checked={acceptColorChange} onCheckedChange={setAcceptColorChange} id="trocaProduto" />
             <Button onClick={handleAddToCart}>Adicionar</Button>
           </DialogContent>
         </Dialog>

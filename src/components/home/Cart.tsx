@@ -3,6 +3,7 @@ import { FaTrashAlt, FaShoppingCart } from 'react-icons/fa';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
 import { Input } from '../ui/input';
+import Link from 'next/link';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -56,41 +57,49 @@ const Cart = () => {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="icon" onClick={handleCartButtonClick}>
-          Ver Carrinho<FaShoppingCart className="text-red-600 hover:text-red-700" size={30} />
+          Ver Carrinho
+          <FaShoppingCart className="text-red-600 hover:text-red-700" size={30} />
         </Button>
       </SheetTrigger>
-      <SheetContent style={{ maxHeight: '100vh', display: 'flex', flexDirection: 'column' }} className="transition-transform duration-500 ease-in-out transform translate-y-0 bg-white dark:bg-gray-800 shadow-xl rounded-t-lg p-4">
+      <SheetContent style={{ maxHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#f8f9fa' }} className="shadow-xl rounded-t-lg p-4">
         <SheetClose asChild>
-          <Button variant="outline" size="icon" className="border-transparent bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700">
+          <Button variant="ghost" size="icon">
             <XIcon />
           </Button>
         </SheetClose>
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Sua Lista</h2>
-        <div style={{ overflowY: 'auto', flexGrow: 1 }} className="divide-y divide-gray-200 dark:divide-gray-700">
+        <h2 className="text-xl font-bold text-gray-900">Sua Lista</h2>
+        <div className="overflow-y-auto" style={{ flexGrow: 1 }}>
           {cartItems.map((item, index) => (
-            <li key={index} className="py-4 flex justify-between items-center">
-              <div className="flex items-center">
+            <div key={index} className="py-4 flex justify-between items-center border-b border-gray-300">
+              <div className="flex items-center space-x-4">
                 <img alt="Product" className="h-10 w-10 rounded-full object-cover" src={item.imagem} />
-                <div className="ml-3">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">Ref: {item.referencia}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">R$ {item.preco.toFixed(2)}</p>
-                  <p>Cor: {item.color} Quantidade: <Input type="number" value={item.quantity} onChange={(e) => updateQuantity(index, Number(e.target.value))} min="1" /></p>
-                  <p>Troca de cor aceita: {item.acceptColorChange ? "Sim" : "Não"}</p>
+                <div>
+                  <p className="text-sm font-medium text-gray-900">Ref: {item.referencia} / {item.size}</p>
+                  <p className="text-sm text-gray-500">R$ {item.preco.toFixed(2)}</p>
+                  <p className="text-sm text-gray-500">Cor: {item.color}</p>
+                  <div className="flex items-center space-x-2">
+                    <p className="text-sm text-gray-500">Qtd:</p>
+                    <Input type="number" value={item.quantity} onChange={(e) => updateQuantity(index, Number(e.target.value))} min="1" className="w-16" />
+                  </div>
+                  <p className="text-sm text-gray-500">Troca de cor aceita: {item.acceptColorChange ? "Sim" : "Não"}</p>
                 </div>
               </div>
-              <Button onClick={(e) => removeFromCart(index, e)}>Remove</Button>
-            </li>
+              <Button onClick={(e) => removeFromCart(index, e)} variant="outline" color="red">Remove</Button>
+            </div>
           ))}
         </div>
-        <div className="p-4 bg-white dark:bg-gray-800 shadow-inner">
-          <span className="text-lg font-medium text-gray-900 dark:text-white">Preço original: R$ {subtotal.toFixed(2)}</span>
-          {discount > 0 && (
-            <>
-              <p className="text-red-500">{discountMessage}</p>
-              <span className="text-lg font-medium text-gray-900 dark:text-white">Preço com desconto: R$ {total.toFixed(2)}</span>
-            </>
-          )}
+        <div className="mt-4 p-4 bg-white rounded shadow-sm">
+          <div className="flex flex-col justify-between space-y-2">
+            <span className="text-lg font-medium text-gray-900 text-lg">Preço original: R$ {subtotal.toFixed(2)}</span>
+            {discount > 0 && (
+              <>
+                <p className="text-red-500 text-xs">{discountMessage}</p>
+                <span className="text-lg font-medium text-gray-900 text-sm">Preço com desconto: R$ {total.toFixed(2)}</span>
+              </>
+            )}
+          </div>
         </div>
+
       </SheetContent>
     </Sheet>
   );
