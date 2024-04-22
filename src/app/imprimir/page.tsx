@@ -42,15 +42,21 @@ export default function Imprimir() {
         {
           table: {
             headerRows: 1,
-            widths: ['*', 'auto', 100, '*', '*'],
+            widths: ['*', '*', 'auto', 'auto', 'auto'],  // Ajuste as larguras conforme necessário
             body: [
               ['Ref/Tam', 'Cor', 'Quantidade', 'Preço', 'Subtotal'],
               ...cartItems.map(item => [
                 { text: `${item.referencia}/${item.size}`, style: 'tableCell' },
-                { text: item.color, style: 'tableCell' },
+                {
+                  stack: [  // Usando stack para agrupar múltiplos itens de texto
+                    { text: item.color, style: 'tableCell' },
+                    { text: `Aceita troca: ${item.acceptColorChange ? "Sim" : "Não"}`, style: 'smallText' }
+                  ],
+                  style: 'tableCell'
+                },
                 { text: item.quantity.toString(), style: 'tableCell' },
                 { text: new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(item.preco)), style: 'tableCell' },
-                { text: new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(item.preco) * item.quantity), style: 'tableCell' }
+                { text: new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(item.preco * item.quantity)), style: 'tableCell' }
               ]),
               [
                 { text: 'Preço Original:', colSpan: 4, style: 'totalLabel' },
@@ -88,6 +94,10 @@ export default function Imprimir() {
         tableCell: {
           margin: [0, 5, 0, 5]
         },
+        smallText: {
+          fontSize: 9,
+          margin: [0, 5, 0, 0]  // Margem superior para distinguir do texto da cor
+        },
         totalLabel: {
           bold: true,
           alignment: 'right',
@@ -102,6 +112,7 @@ export default function Imprimir() {
   
     pdfMake.createPdf(docDefinition).download('pedido.pdf');
   };
+  
   
   
 
