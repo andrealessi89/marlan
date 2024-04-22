@@ -5,9 +5,9 @@ import { query } from '../../../lib/db'; // Ajuste o caminho conforme necessári
 
 export async function GET(request: NextRequest) {
     try {
-        // Obtém a URL da requisição e garante que a base da URL está definida corretamente.
-        const url = new URL(request.url, `http://${request.headers.get('host')}`);
-        console.log(url);
+        // Verifica se a URL já é absoluta ou não
+        const baseURL = request.headers.get('x-forwarded-host') ? `https://${request.headers.get('x-forwarded-host')}` : `http://${request.headers.get('host')}`;
+        const url = new URL(request.url.startsWith('http') ? request.url : baseURL + request.url);
 
         // Coleta os parâmetros de consulta de forma segura.
         const id = url.searchParams.get('id');
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
         const genero = url.searchParams.get('genero');
         const cores = url.searchParams.get('cores');
 
-        // Inicia a construção da consulta SQL com segurança contra SQL injection.
+        // Constrói a consulta SQL de forma dinâmica e segura.
         let sql = 'SELECT * FROM produto';
         let conditions = [];
         let parameters = [];
@@ -37,15 +37,12 @@ export async function GET(request: NextRequest) {
             parameters.push(cores);
         }
 
-        // Adiciona condições à consulta, se existirem.
         if (conditions.length > 0) {
             sql += ' WHERE ' + conditions.join(' AND ');
         }
 
-        // Executa a consulta.
+        // Executa a consulta SQL.
         const results = await query(sql, parameters);
-
-        // Retorna os resultados com cabeçalhos apropriados para CORS e JSON.
         return new NextResponse(JSON.stringify(results), {
             status: 200,
             headers: {
@@ -56,8 +53,7 @@ export async function GET(request: NextRequest) {
             }
         });
     } catch (error) {
-        // Manipula erros de banco de dados e outros erros internos.
-        console.error('Database or Internal Error:', error);
+        console.error('Error:', error);
         return new NextResponse(JSON.stringify({ message: 'Internal server error' }), {
             status: 500,
             headers: {
