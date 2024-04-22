@@ -5,7 +5,6 @@ import { query } from '../../../lib/db'; // Ajuste o caminho conforme necessári
 
 export async function GET(request: NextRequest) {
 
-    console.log('request', request);
     // Obtém a URL da requisição
     const url = new URL(request.url);
 

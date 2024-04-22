@@ -30,6 +30,9 @@ function Banner() {
         width="800"
       />
       <div className="text-center p-3 bg-white text-sm md:text-base" dangerouslySetInnerHTML={messages[currentMessage]} />
+      <div className="text-center p-5" >
+          Pix, Dinheiro, Cartão de Débito e Crédito em até 6x sem juros com Parcelas mínima de R$50,00
+        </div>
     </div>
   );
 }

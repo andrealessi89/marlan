@@ -43,11 +43,16 @@ const ProductCard = forwardRef<HTMLElement, ProductCardProps>(
   };
 
   const handleAddToCart = () => {
+    if (!color || !size || quantity < 1) {
+      toast.error('Por favor, selecione a cor, o tamanho e insira a quantidade.');
+      return; // Impede que o formulário seja submetido se não estiver tudo preenchido
+    }
+  
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const itemToAdd = { ...description, quantity, color, size, acceptColorChange };
     cartItems.push(itemToAdd);
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
-
+  
     toast.success(`${description.referencia} foi adicionado ao seu carrinho.`);
     setIsOpen(false);
   };
@@ -80,37 +85,37 @@ const ProductCard = forwardRef<HTMLElement, ProductCardProps>(
         <FaShoppingCart className="text-red-600 hover:text-white" />
       </Button>
       {isOpen && (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent>
-            <DialogTitle>Adicionar ao carrinho</DialogTitle>
-            <Select defaultValue="" onValueChange={setColor} aria-label="Cor">
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione a cor" />
-              </SelectTrigger>
-              <SelectContent>
-                {colorOptions.map((colorOption, index) => (
-                  <SelectItem key={index} value={colorOption}>{colorOption}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select defaultValue="" onValueChange={setSize} aria-label="Tamanho">
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione o tamanho" />
-              </SelectTrigger>
-              <SelectContent>
-                {sizeOptions.map((sizeOption, index) => (
-                  <SelectItem key={index} value={sizeOption}>{sizeOption}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Label htmlFor="quantidade">Quantidade</Label>
-            <Input type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min="1" />
-            <Label htmlFor="trocaProduto">Aceitar trocar de cor caso não tenha em estoque</Label>
-            <Checkbox checked={acceptColorChange} onCheckedChange={handleAcceptColorChange} id="trocaProduto" />
-            <Button onClick={handleAddToCart}>Adicionar</Button>
-          </DialogContent>
-        </Dialog>
-      )}
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent>
+          <DialogTitle>Adicionar ao carrinho</DialogTitle>
+          <Select defaultValue="" onValueChange={setColor} required aria-label="Cor">
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione a cor" />
+            </SelectTrigger>
+            <SelectContent>
+              {colorOptions.map((colorOption, index) => (
+                <SelectItem key={index} value={colorOption}>{colorOption}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select defaultValue="" onValueChange={setSize} required aria-label="Tamanho">
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione o tamanho" />
+            </SelectTrigger>
+            <SelectContent>
+              {sizeOptions.map((sizeOption, index) => (
+                <SelectItem key={index} value={sizeOption}>{sizeOption}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Label htmlFor="quantidade">Quantidade</Label>
+          <Input type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min="1" required />
+          <Label htmlFor="trocaProduto">Aceitar trocar de cor caso não tenha em estoque</Label>
+          <Checkbox checked={acceptColorChange} onCheckedChange={handleAcceptColorChange} id="trocaProduto" />
+          <Button onClick={handleAddToCart}>Adicionar</Button>
+        </DialogContent>
+      </Dialog>
+    )}
     </div>
   );
 });

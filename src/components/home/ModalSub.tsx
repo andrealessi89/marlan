@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { DialogTrigger, DialogTitle, DialogDescription, DialogHeader, DialogFooter, DialogContent, Dialog, DialogClose } from "@/components/ui/dialog";
+import { DialogTitle, DialogDescription, DialogHeader, DialogFooter, DialogContent, Dialog } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import InputMask from 'react-input-mask';  // Importe o InputMask
+import InputMask from 'react-input-mask';
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
@@ -30,9 +30,7 @@ export default function ModalSub() {
         const data = Object.fromEntries(formData.entries());
 
         try {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-            const response = await fetch(`${apiUrl}/clientes`, {
-                
+            const response = await fetch(`/api/clientes`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -43,7 +41,7 @@ export default function ModalSub() {
             if (response.ok) {
                 console.log('Success:', await response.json());
                 Cookies.set('userInfoSubmitted', 'true', { expires: 365 });
-                setIsOpen(false);
+                setIsOpen(false); // Fechar o modal apenas se o POST for bem-sucedido
             }
         } catch (error) {
             console.error('Error:', error);
@@ -51,7 +49,7 @@ export default function ModalSub() {
     };
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <Dialog open={isOpen}>
             <DialogContent className="p-4">
                 <DialogHeader>
                     <DialogTitle>Cadastro Inicial</DialogTitle>
@@ -83,14 +81,15 @@ export default function ModalSub() {
                                 <SelectValue placeholder="Selecione uma opção" />
                             </SelectTrigger>
                             <SelectContent>
+                                {/* Ajuste os valores dos items para serem únicos */}
                                 <SelectItem value="whatsapp">Whatsapp</SelectItem>
                                 <SelectItem value="instagram">Instagram</SelectItem>
                                 <SelectItem value="outdoor">Outdoor</SelectItem>
                                 <SelectItem value="banner">Banner</SelectItem>
                                 <SelectItem value="email">Email</SelectItem>
-                                <SelectItem value="email">Carrp de Som</SelectItem>
-                                <SelectItem value="email">Rádio</SelectItem>
-                                <SelectItem value="email">Outros</SelectItem>
+                                <SelectItem value="carro_de_som">Carro de Som</SelectItem>
+                                <SelectItem value="radio">Rádio</SelectItem>
+                                <SelectItem value="outros">Outros</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>

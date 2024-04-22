@@ -11,7 +11,7 @@ function Menu({ onChange, brands, articles, genders, sizes }) {
     <Sheet>
       <div className="flex justify-between items-center">
         <Link href="/">
-          <img src='https://grupomarlan.com.br/wp-content/uploads/2021/06/Grupomarlan-sem-slogan.svg' alt='Grupomarlan' width={200}/>
+          <img src='images/Grupomarlan-sem-slogan.svg' alt='Grupomarlan' width={200}/>
         </Link>
         <Cart />
       </div>
