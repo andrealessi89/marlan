@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
     }
 }
 
-
+/*
 export async function POST(request: NextRequest) {
     const { referencia, tamanho, marca, genero, preco, imagem, situacao, categoria, cores, nome } = await request.json();
     try {
@@ -96,4 +96,4 @@ export async function DELETE(request: NextRequest) {
         return new NextResponse(JSON.stringify({ message: error.message }), { status: 500 });
     }
 }
-
+*/
