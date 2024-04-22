@@ -4,65 +4,61 @@ import { NextRequest, NextResponse } from 'next/server';
 import { query } from '../../../lib/db'; // Ajuste o caminho conforme necessário
 
 export async function GET(request: NextRequest) {
+
+    // Obtém a URL da requisição
+    const url = new URL(request.url);
+
+    // Aqui você pode adicionar outros parâmetros conforme necessário
+    const id = url.searchParams.get('id');
+    const tamanho = url.searchParams.get('tamanho');
+    const genero = url.searchParams.get('genero');
+    const cores = url.searchParams.get('cores');
+
+    // Montando a consulta SQL de forma dinâmica
+    let sql = 'SELECT * FROM produto';
+    let conditions = [];
+    let parameters = [];
+
+    if (id) {
+        conditions.push('id = ?');
+        parameters.push(id);
+    }
+
+    if (tamanho) {
+        conditions.push('tamanho = ?');
+        parameters.push(tamanho);
+    }
+
+    if (genero) {
+        conditions.push('genero = ?');
+        parameters.push(genero);
+    }
+
+    if (cores) {
+        conditions.push('cores = ?');
+        parameters.push(cores);
+    }
+
+    if (conditions.length > 0) {
+        sql += ' WHERE ' + conditions.join(' AND ');
+    }
+
     try {
-        // Verifica se a URL já é absoluta ou não
-        const baseURL = request.headers.get('x-forwarded-host') ? `https://${request.headers.get('x-forwarded-host')}` : `http://${request.headers.get('host')}`;
-        const url = new URL(request.url.startsWith('http') ? request.url : baseURL + request.url);
-
-        // Coleta os parâmetros de consulta de forma segura.
-        const id = url.searchParams.get('id');
-        const tamanho = url.searchParams.get('tamanho');
-        const genero = url.searchParams.get('genero');
-        const cores = url.searchParams.get('cores');
-
-        // Constrói a consulta SQL de forma dinâmica e segura.
-        let sql = 'SELECT * FROM produto';
-        let conditions = [];
-        let parameters = [];
-
-        if (id) {
-            conditions.push('id = ?');
-            parameters.push(id);
-        }
-        if (tamanho) {
-            conditions.push('tamanho = ?');
-            parameters.push(tamanho);
-        }
-        if (genero) {
-            conditions.push('genero = ?');
-            parameters.push(genero);
-        }
-        if (cores) {
-            conditions.push('cores = ?');
-            parameters.push(cores);
-        }
-
-        if (conditions.length > 0) {
-            sql += ' WHERE ' + conditions.join(' AND ');
-        }
-
-        // Executa a consulta SQL.
         const results = await query(sql, parameters);
         return new NextResponse(JSON.stringify(results), {
             status: 200,
             headers: {
-                'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            }
+              }
         });
-    } catch (error) {
-        console.error('Error:', error);
-        return new NextResponse(JSON.stringify({ message: 'Internal server error' }), {
-            status: 500,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+    } catch (error: any) {
+        return new NextResponse(JSON.stringify({ message: error.message }), {
+            status: 500
         });
     }
 }
-
 
 /*
 export async function POST(request: NextRequest) {
