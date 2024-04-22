@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
     try {
         // Obtém a URL da requisição e garante que a base da URL está definida corretamente.
         const url = new URL(request.url, `http://${request.headers.get('host')}`);
+        console.log(url);
 
         // Coleta os parâmetros de consulta de forma segura.
         const id = url.searchParams.get('id');
