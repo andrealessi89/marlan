@@ -41,7 +41,7 @@ const Cart = () => {
     const subtotal = cartItems.reduce((acc, item) => acc + item.preco * item.quantity, 0);
     let discount = 0;
     let discountMessage = '';
-    if (subtotal >= 10000) {
+    if (subtotal >= 3000) {
       discount = 0.10; // 10% de desconto
       discountMessage = 'Você ganhou 10% de desconto por compras acima de R$3.000,00.';
     } else if (subtotal >= 2000) {

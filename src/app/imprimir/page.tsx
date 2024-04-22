@@ -24,12 +24,12 @@ export default function Imprimir() {
   let discount = 0;
   let discountMessage = "";
 
-  if (subtotal >= 3000) {
-    discount = subtotal * 0.10;
-    discountMessage = "Desconto de 10% aplicado.";
-  } else if (subtotal >= 2000) {
+  if (subtotal >= 2000) {
     discount = subtotal * 0.05;
     discountMessage = "Desconto de 5% aplicado.";
+  } else if (subtotal >= 3000) {
+    discount = subtotal * 0.10;
+    discountMessage = "Desconto de 10% aplicado.";
   }
 
 
