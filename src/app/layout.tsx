@@ -9,8 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Marlan Catalogo",
-  description: "Catalogo de produtos Marlan",
+  title: "Marlan Catálogo",
+  description: "Catálogo de produtos Marlan",
 };
 
 

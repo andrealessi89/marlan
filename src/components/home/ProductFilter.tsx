@@ -44,6 +44,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onChange, brands, article
 
   return (
     <div className="space-y-4 ">
+      
       <div>
         <Label htmlFor="brand">Marca</Label>
         <Select value={selectedBrand} onValueChange={value => { setSelectedBrand(value); onChange('brand', value); }}>
