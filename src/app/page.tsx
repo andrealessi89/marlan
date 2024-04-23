@@ -7,6 +7,7 @@ import Footer from "@/components/home/Footer";
 import Menu from "@/components/home/Menu";
 import Banner from "@/components/home/Banner";
 import ModalSub from '@/components/home/ModalSub';
+import Script from 'next/script';
 
 async function fetchProdutos() {
   const response = await fetch(`/api/produtos`);
@@ -14,7 +15,7 @@ async function fetchProdutos() {
     throw new Error('Erro ao buscar dados');
   }
   const produtos = await response.json();
-  
+
   // Ordena os produtos por preço, do menor para o maior
   produtos.sort((a, b) => parseFloat(a.preco) - parseFloat(b.preco));
 
@@ -44,13 +45,13 @@ export default function Page() {
       const articles = Array.from(new Set(products.map(product => product.artigo)));
       const genders = Array.from(new Set(products.map(product => product.genero)));
       const sizes = Array.from(new Set(products.flatMap(product => product.tamanho.split(", "))));
-  
+
       setFilterOptions({ brands, articles, genders, sizes });
     }
   }, [products]);
 
   const handleFilterChange = (filterType, value) => {
-    console.log(`Filter changed: ${filterType} = ${value}`); 
+    console.log(`Filter changed: ${filterType} = ${value}`);
     setFilters(prev => {
       const newFilters = { ...prev, [filterType]: value };
       console.log("Updating filters: ", newFilters);
@@ -61,7 +62,7 @@ export default function Page() {
 
   const handleClearFilters = () => {
     console.log("Filtros foram limpos!");
-   
+
   };
 
 
@@ -74,7 +75,7 @@ export default function Page() {
 
       <section className="w-full min-h-screen bg-gray-100 dark:bg-gray-900">
 
-      <header className="container mx-auto px-4 md:px-6 pt-8 pb-0">
+        <header className="container mx-auto px-4 md:px-6 pt-8 pb-0">
 
           <Menu
             onChange={handleFilterChange}
