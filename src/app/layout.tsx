@@ -5,6 +5,7 @@ import "./globals.css";
 import TanstackProvider from "@/providers/TanstackProvider";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+      <GoogleTagManager gtmId="G-WG93WGNJ" />
       <ToastContainer />
         <TanstackProvider>
           <div>{children}</div>
