@@ -9,13 +9,18 @@ import Banner from "@/components/home/Banner";
 import ModalSub from '@/components/home/ModalSub';
 
 async function fetchProdutos() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const response = await fetch(`/api/produtos`);
   if (!response.ok) {
     throw new Error('Erro ao buscar dados');
   }
-  return response.json();
+  const produtos = await response.json();
+  
+  // Ordena os produtos por preço, do menor para o maior
+  produtos.sort((a, b) => parseFloat(a.preco) - parseFloat(b.preco));
+
+  return produtos;
 }
+
 
 export default function Page() {
   const { data: products, isLoading, isError, error } = useQuery({
@@ -32,7 +37,7 @@ export default function Page() {
     sizes: []
   });
 
-  // Extrair opções de filtros quando os produtos estiverem disponíveis
+
   useEffect(() => {
     if (products) {
       const brands = Array.from(new Set(products.map(product => product.marca)));
@@ -45,7 +50,7 @@ export default function Page() {
   }, [products]);
 
   const handleFilterChange = (filterType, value) => {
-    console.log(`Filter changed: ${filterType} = ${value}`); // Confirme os valores recebidos
+    console.log(`Filter changed: ${filterType} = ${value}`); 
     setFilters(prev => {
       const newFilters = { ...prev, [filterType]: value };
       console.log("Updating filters: ", newFilters);
@@ -56,7 +61,7 @@ export default function Page() {
 
   const handleClearFilters = () => {
     console.log("Filtros foram limpos!");
-    // Aqui você pode adicionar lógica adicional se necessário
+   
   };
 
 
