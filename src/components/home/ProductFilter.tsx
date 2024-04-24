@@ -25,6 +25,14 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onChange, brands, article
   
 
   const handleClearFilters = () => {
+
+    onChange('brand', '');
+    onChange('article', '');
+    onChange('gender', '');
+    onChange('size', '');
+    onChange('minPrice', '');
+    onChange('maxPrice', '');
+    
     setSelectedBrand('');
     setSelectedArticle('');
     setSelectedGender('');
@@ -32,10 +40,12 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onChange, brands, article
     setMinPrice('');
     setMaxPrice('');
 
+    // Chama a função passada pelas props que reseta os filtros no componente pai
     if (onClearFilters) {
       onClearFilters();
     }
-  };
+};
+
 
   const handleApplyFilters = () => {
     onChange('brand', selectedBrand);
