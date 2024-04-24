@@ -4,7 +4,6 @@ import { DialogTitle, DialogDescription, DialogHeader, DialogFooter, DialogConte
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import InputMask from 'react-input-mask';
-import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import Cookies from 'js-cookie';
@@ -76,22 +75,17 @@ export default function ModalSub() {
                     </div>
                     <div>
                         <Label htmlFor="como_soube">Como soube do bazar?</Label>
-                        <Select name="como_soube" required>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Selecione uma opção" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {/* Ajuste os valores dos items para serem únicos */}
-                                <SelectItem value="whatsapp">Whatsapp</SelectItem>
-                                <SelectItem value="instagram">Instagram</SelectItem>
-                                <SelectItem value="outdoor">Outdoor</SelectItem>
-                                <SelectItem value="banner">Banner</SelectItem>
-                                <SelectItem value="email">Email</SelectItem>
-                                <SelectItem value="carro_de_som">Carro de Som</SelectItem>
-                                <SelectItem value="radio">Rádio</SelectItem>
-                                <SelectItem value="outros">Outros</SelectItem>
-                            </SelectContent>
-                        </Select>
+                        <select id="como_soube" name="como_soube" required className="border p-2 rounded w-full">
+                            <option value="">Selecione uma opção</option>
+                            <option value="whatsapp">Whatsapp</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="outdoor">Outdoor</option>
+                            <option value="banner">Banner</option>
+                            <option value="email">Email</option>
+                            <option value="carro_de_som">Carro de Som</option>
+                            <option value="radio">Rádio</option>
+                            <option value="outros">Outros</option>
+                        </select>
                     </div>
                     <div className="flex items-center space-x-2">
                         <Checkbox id="newsletter" checked={newsletter} onCheckedChange={handleCheckboxChange} />
@@ -103,7 +97,7 @@ export default function ModalSub() {
                     <DialogFooter>
                         <Button type="submit" className="w-full">Enviar</Button>
                     </DialogFooter>
-                </form> 
+                </form>
             </DialogContent>
         </Dialog>
     );
