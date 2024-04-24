@@ -4,31 +4,27 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input"
 
+
 interface ProductFilterProps {
   onChange: (filterType: string, value: any) => void;
   brands: any[];
   articles: any[];
   genders: any[];
   sizes: any[];
-  onClearFilters?: () => void; // Tornando opcional com '?'
+  onClearFilters?: () => void;
+  onClose?: () => void; // Added optional onClose property
 }
 
-const ProductFilter: React.FC<ProductFilterProps> = ({ onChange, brands, articles, genders, sizes, onClearFilters }) => {
+const ProductFilter: React.FC<ProductFilterProps> = ({ onChange, brands, articles, genders, sizes, onClearFilters, onClose  }) => {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedArticle, setSelectedArticle] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+  
 
   const handleClearFilters = () => {
-    onChange('brand', '');
-    onChange('article', '');
-    onChange('gender', '');
-    onChange('size', '');
-    onChange('minPrice', '');
-    onChange('maxPrice', '');
-
     setSelectedBrand('');
     setSelectedArticle('');
     setSelectedGender('');
@@ -41,13 +37,22 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onChange, brands, article
     }
   };
 
+  const handleApplyFilters = () => {
+    onChange('brand', selectedBrand);
+    onChange('article', selectedArticle);
+    onChange('gender', selectedGender);
+    onChange('size', selectedSize);
+    onChange('minPrice', minPrice);
+    onChange('maxPrice', maxPrice);
+    if (onClose) onClose(); // Fechar o menu após aplicar os filtros
+  };
 
   return (
-    <div className="space-y-4 ">
-      
+    <div className="space-y-4">
+      {/* Marca */}
       <div>
         <Label htmlFor="brand">Marca</Label>
-        <Select value={selectedBrand} onValueChange={value => { setSelectedBrand(value); onChange('brand', value); }}>
+        <Select value={selectedBrand} onValueChange={setSelectedBrand}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Selecione a marca" />
           </SelectTrigger>
@@ -56,9 +61,11 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onChange, brands, article
           </SelectContent>
         </Select>
       </div>
+
+      {/* Artigo */}
       <div>
         <Label htmlFor="article">Artigo</Label>
-        <Select  value={selectedArticle} onValueChange={value => { setSelectedArticle(value); onChange('article', value); }}>
+        <Select value={selectedArticle} onValueChange={setSelectedArticle}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Selecione a categoria" />
           </SelectTrigger>
@@ -67,9 +74,11 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onChange, brands, article
           </SelectContent>
         </Select>
       </div>
+
+      {/* Gênero */}
       <div>
         <Label htmlFor="gender">Gênero</Label>
-        <Select  value={selectedGender} onValueChange={value => { setSelectedGender(value); onChange('gender', value); }}>
+        <Select value={selectedGender} onValueChange={setSelectedGender}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Selecione o sexo" />
           </SelectTrigger>
@@ -78,9 +87,11 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onChange, brands, article
           </SelectContent>
         </Select>
       </div>
+
+      {/* Tamanho */}
       <div>
         <Label htmlFor="size">Tamanho</Label>
-        <Select  value={selectedSize} onValueChange={value => { setSelectedSize(value); onChange('size', value); }}>
+        <Select value={selectedSize} onValueChange={setSelectedSize}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Selecione o tamanho" />
           </SelectTrigger>
@@ -90,40 +101,40 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onChange, brands, article
         </Select>
       </div>
 
-
+      {/* Preço Mínimo */}
       <div>
         <Label htmlFor="minPrice">Preço Mínimo</Label>
         <Input
           id="minPrice"
+          type="number"
           value={minPrice}
-          onChange={e => {
-            setMinPrice(e.target.value);
-            onChange('minPrice', e.target.value);
-          }}
+          onChange={e => setMinPrice(e.target.value)}
           placeholder="R$ min"
           className="input-field"
-          type="number"
-          >
-        </Input>
+        />
       </div>
+
+      {/* Preço Máximo */}
       <div>
         <Label htmlFor="maxPrice">Preço Máximo</Label>
         <Input
           id="maxPrice"
+          type="number"
           value={maxPrice}
-          onChange={e => {
-            setMaxPrice(e.target.value);
-            onChange('maxPrice', e.target.value);
-          }}
+          onChange={e => setMaxPrice(e.target.value)}
           placeholder="R$ max"
           className="input-field"
-          type="number"
-          >
-        </Input>
+        />
       </div>
+
+      {/* Botões */}
+      <Button onClick={handleApplyFilters} className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Aplicar Filtro
+      </Button>
       <Button onClick={handleClearFilters} className="w-full mt-4">Limpar Filtro</Button>
-    </div>  
-  );
+    </div>
+);
+
 }
 
 export default ProductFilter;

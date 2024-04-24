@@ -1,14 +1,19 @@
-/* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import ProductFilter from "./ProductFilter";
 import Cart from "./Cart";
 
 function Menu({ onChange, brands, articles, genders, sizes }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <div className="flex justify-between items-center">
         <Link href="/">
           <img src='images/Grupomarlan-sem-slogan.svg' alt='Grupomarlan' width={200}/>
@@ -16,7 +21,7 @@ function Menu({ onChange, brands, articles, genders, sizes }) {
         <Cart />
       </div>
       <SheetTrigger asChild>
-        <Button className="md:hidden" variant="ghost">
+        <Button onClick={() => setIsOpen(!isOpen)} className="md:hidden" variant="ghost">
           <MenuIcon/>
         </Button>
       </SheetTrigger>
@@ -28,6 +33,7 @@ function Menu({ onChange, brands, articles, genders, sizes }) {
             articles={articles}
             genders={genders}
             sizes={sizes}
+            onClose={handleClose} // Passando a função para fechar o Sheet
           />
         </nav>
       </SheetContent>
