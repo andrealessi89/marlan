@@ -57,7 +57,7 @@ const Cart = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button onClick={handleCartButtonClick}>
+        <Button onClick={handleCartButtonClick} className="bg-pink-500 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded inline-flex items-center">
           Ver Carrinho
           <FaShoppingCart className="" size={30} />
         </Button>

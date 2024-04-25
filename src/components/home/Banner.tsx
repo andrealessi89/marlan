@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { FaVideo } from 'react-icons/fa'; // Importando o ícone de vídeo
+import { FaVideo, FaRuler } from 'react-icons/fa'; // Importando o ícone de vídeo
 
 function Banner() {
   const messages = [
@@ -37,11 +37,20 @@ function Banner() {
       {/* Botão estilizado com ícone */}
       <div className="text-center mt-4">
         <Link href="https://www.youtube.com/watch?v=cpK_BcY2cVk">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+        <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
           <FaVideo className="mr-2"/> {/* Ícone ao lado do texto */}
           Aprenda a usar o catálogo
         </button>
         </Link>
+        <Link href="https://grupomarlan.com.br/bazar/TabelaDeMedidas.jpg" target='_blank'>
+        <button className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+          <FaRuler className="mr-2"/> {/* Ícone ao lado do texto */}
+          Tabela de medidas
+        </button>
+        </Link>
+      </div>
+      <div className="text-center mt-4">
+        
       </div>
     </div>
   );
