@@ -63,7 +63,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     <div className="space-y-4">
       <div>
         <Label htmlFor="brand">Marca</Label>
-        <select id="brand" name="brand" value={selectedBrand} onChange={e => setSelectedBrand(e.target.value)} className="w-full px-3 py-2 border-2 border-black rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+        <select id="brand" name="brand" value={selectedBrand} onChange={e => setSelectedBrand(e.target.value)} className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
           <option value="">Selecione a marca</option>
           {brands.map(brand => (
             <option key={brand} value={brand}>{brand}</option>
@@ -73,7 +73,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
 
       <div>
         <Label htmlFor="article">Artigo</Label>
-        <select id="article" name="article" value={selectedArticle} onChange={e => setSelectedArticle(e.target.value)} className="w-full px-3 py-2 border-2 border-black rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+        <select id="article" name="article" value={selectedArticle} onChange={e => setSelectedArticle(e.target.value)} className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
           <option value="">Selecione a categoria</option>
           {articles.map(article => (
             <option key={article} value={article}>{article}</option>
@@ -83,7 +83,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
 
       <div>
         <Label htmlFor="gender">Gênero</Label>
-        <select id="gender" name="gender" value={selectedGender} onChange={e => setSelectedGender(e.target.value)} className="w-full px-3 py-2 border-2 border-black rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+        <select id="gender" name="gender" value={selectedGender} onChange={e => setSelectedGender(e.target.value)} className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
           <option value="">Selecione o sexo</option>
           {genders.map(gender => (
             <option key={gender} value={gender}>{gender}</option>
@@ -93,7 +93,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
 
       <div>
         <Label htmlFor="size">Tamanho</Label>
-        <select id="size" name="size" value={selectedSize} onChange={e => setSelectedSize(e.target.value)} className="w-full px-3 py-2 border-2 border-black rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+        <select id="size" name="size" value={selectedSize} onChange={e => setSelectedSize(e.target.value)} className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
           <option value="">Selecione o tamanho</option>
           {sizes.map(size => (
             <option key={size} value={size}>{size}</option>
@@ -110,7 +110,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
           value={minPrice}
           onChange={e => setMinPrice(e.target.value)}
           placeholder="R$ min"
-          className="w-full px-3 py-2 border-gray-300 rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+          className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
         />
       </div>
 
@@ -123,7 +123,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
           value={maxPrice}
           onChange={e => setMaxPrice(e.target.value)}
           placeholder="R$ max"
-          className="w-full px-3 py-2 border-gray-300 rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+          className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
         />
       </div>
 
