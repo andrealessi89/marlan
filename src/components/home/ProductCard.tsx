@@ -73,7 +73,7 @@ const ProductCard = forwardRef<HTMLElement, ProductCardProps>(
       {isOpen && (
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
-          <DialogTitle>Adicionar ao carrinho</DialogTitle>
+          <DialogTitle>Adicionar Lista de desejos</DialogTitle>
           <Label htmlFor="color">Cor</Label>
           <select id="color" value={color} onChange={(e) => setColor(e.target.value)} className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
             <option value="">Selecione a cor</option>
