@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { forwardRef, useState } from "react";
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaHeart  } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -68,7 +68,7 @@ const ProductCard = forwardRef<HTMLElement, ProductCardProps>(
         </div>
       </div>
       <Button onClick={() => setIsOpen(true)} className="bg-white hover:bg-red-700 text-red-600 hover:text-white rounded-full p-3 absolute bottom-4 right-4 transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl">
-        <FaShoppingCart />
+        <FaHeart  />
       </Button>
       {isOpen && (
       <Dialog open={isOpen} onOpenChange={setIsOpen}>

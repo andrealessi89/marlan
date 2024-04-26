@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react';
-import { FaTrashAlt, FaShoppingCart } from 'react-icons/fa';
+import { FaTrashAlt, FaShoppingCart, FaHeart  } from 'react-icons/fa';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
 import { Input } from '../ui/input';
@@ -58,8 +58,8 @@ const Cart = () => {
     <Sheet>
       <SheetTrigger asChild>
         <Button onClick={handleCartButtonClick} className="bg-pink-500 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-          Ver Carrinho
-          <FaShoppingCart className="" size={30} />
+          Lista de desejos
+          <FaHeart  className="" size={30} />
         </Button>
       </SheetTrigger>
       <SheetContent style={{ maxHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#f8f9fa' }} className="shadow-xl rounded-t-lg p-4">
