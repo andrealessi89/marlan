@@ -28,6 +28,7 @@ export default function ModalSub() {
         formData.set('newsletter', newsletter ? '1' : '0');
         const data = Object.fromEntries(formData.entries());
 
+
         try {
             const response = await fetch(`/api/clientes`, {
                 method: 'POST',
@@ -54,6 +55,14 @@ export default function ModalSub() {
                     <DialogTitle>Cadastro Inicial</DialogTitle>
                     <DialogDescription>Preencha suas informações para acessar o catálogo:</DialogDescription>
                 </DialogHeader>
+                <img
+                    alt="Banner"
+                    className="w-full object-cover md:rounded-lg md:shadow-lg md:object-cover md:object-center"
+                    height="200"
+                    src="/images/BannerFinal.jpg"
+                    style={{ aspectRatio: "800/200", objectFit: "cover" }}
+                    width="800"
+                />
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <Label htmlFor="nome">Nome Completo</Label>
@@ -68,24 +77,6 @@ export default function ModalSub() {
                         <InputMask mask="(99) 99999-9999" maskChar=" " placeholder="(00) 00000-0000">
                             {(inputProps) => <Input {...inputProps} id="telefone" name="telefone" required />}
                         </InputMask>
-                    </div>
-                    <div>
-                        <Label htmlFor="cidade">Cidade</Label>
-                        <Input id="cidade" name="cidade" placeholder="Sua cidade" required />
-                    </div>
-                    <div>
-                        <Label htmlFor="como_soube">Como soube do bazar?</Label>
-                        <select id="como_soube" name="como_soube" required className="border p-2 rounded w-full">
-                            <option value="">Selecione uma opção</option>
-                            <option value="whatsapp">Whatsapp</option>
-                            <option value="instagram">Instagram</option>
-                            <option value="outdoor">Outdoor</option>
-                            <option value="banner">Banner</option>
-                            <option value="email">Email</option>
-                            <option value="carro_de_som">Carro de Som</option>
-                            <option value="radio">Rádio</option>
-                            <option value="outros">Outros</option>
-                        </select>
                     </div>
                     <div className="flex items-center space-x-2">
                         <Checkbox id="newsletter" checked={newsletter} onCheckedChange={handleCheckboxChange} />
