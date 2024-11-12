@@ -57,9 +57,10 @@ export default function Page() {
 
   return (
     <>
-      <ModalSub tipo="normal" />
+      <ModalSub tipo="vip" />
       <section className="w-full min-h-screen bg-gray-100 dark:bg-gray-900 ">
 
+        {/* Menu movido para fora do header e usando uma div fixa */}
         <div className="fixed top-0 left-0 w-full z-50 bg-white shadow-md px-4 md:px-6 pt-8 pb-6">
           <div className="container mx-auto px-4 md:px-6">
             <Menu
