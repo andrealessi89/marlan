@@ -24,12 +24,37 @@ export default function ModalSub({ tipo }: ModalSubProps) {
     const [estado, setEstado] = useState('');
     const [cidadeSuggestions, setCidadeSuggestions] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [bannerUrl, setBannerUrl] = useState<string>('/images/default-banner.jpg');
+    const [loadingBanner, setLoadingBanner] = useState(true);
 
     useEffect(() => {
         if (!Cookies.get('userInfoSubmitted')) {
             setIsOpen(true);
         }
-    }, []);
+
+        // Fetch banner URL based on "tipo"
+        const fetchBannerUrl = async () => {
+            try {
+                const response = await fetch(`/api/banners_cadastro?tipo=${tipo}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setBannerUrl(data.url || '/images/default-banner.jpg');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar o banner:', error);
+            } finally {
+                setLoadingBanner(false);
+            }
+        };
+        fetchBannerUrl();
+    }, [tipo]);
+
+    {loadingBanner ? (
+        <div className="spinner">Carregando banner...</div>
+    ) : (
+        <img src={bannerUrl} alt="Banner" />
+    )}
+    
 
     const fetchCidades = async (term: string) => {
         if (!term) return;
@@ -165,8 +190,9 @@ export default function ModalSub({ tipo }: ModalSubProps) {
 
     return (
         <Dialog open={isOpen}>
-            <DialogContent className="p-4">
+            <DialogContent className="p-4 max-h-[100vh] overflow-y-auto">
                 <DialogHeader>
+                <img src={bannerUrl} alt="Banner" />
                     <DialogTitle>Cadastro Inicial</DialogTitle>
                     <DialogDescription>Preencha suas informações para acessar o catálogo:</DialogDescription>
                 </DialogHeader>
@@ -228,8 +254,8 @@ export default function ModalSub({ tipo }: ModalSubProps) {
                                 <Label htmlFor="generoCrianca" className="block mb-2">Gênero da Criança</Label>
                                 <select id="generoCrianca" name="generoCrianca" required className="input block w-full rounded-md border border-input bg-transparent px-3 py-1">
                                     <option value="">Selecione</option>
-                                    <option value="Masculino">Masculino</option>
-                                    <option value="Feminino">Feminino</option>
+                                    <option value="Masculino">Menino</option>
+                                    <option value="Feminino">Menina</option>
                                     <option value="Ambos">Ambos</option>
                                 </select>
                             </div>
