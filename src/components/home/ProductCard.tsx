@@ -68,7 +68,7 @@ const ProductCard = forwardRef<HTMLElement, ProductCardProps>(
         </div>
       </div>
       <Button onClick={() => setIsOpen(true)} className="bg-white hover:bg-red-700 text-red-600 hover:text-white rounded-full p-3 absolute bottom-4 right-4 transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl">
-        <FaHeart  />
+        <FaHeart/> Adicionar a lista
       </Button>
       {isOpen && (
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
