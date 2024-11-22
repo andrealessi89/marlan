@@ -8,7 +8,7 @@ function Banner() {
 
   const messages = [
     { __html: "O estoque é limitado e a seleção das peças não garantem estoque" },
-    { __html: "<strong>Benefícios do bazar:</strong> nas compras acima de R$ 1.000,00 você concorre à um passaporte para o Beto Carrero" },
+    { __html: "<strong>Benefícios do bazar:</strong> Compras Acima de R$ 1.000,00 - Concorrem a pares de ingressos diários para Multiparque BC e/ou Alles Park Pomerode" },
     { __html: "<strong>Benefícios do bazar:</strong> desconto de 5% nas compras acima de R$ 2.000,00" },
     { __html: "<strong>Benefícios do bazar:</strong> desconto de 10% nas compras acima de R$ 3.000,00" }
   ];
