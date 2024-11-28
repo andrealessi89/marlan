@@ -62,12 +62,15 @@ export default function ModalSub({ tipo }: ModalSubProps) {
                     {loadingBanner ? (
                         <div className="spinner">Carregando banner...</div>
                     ) : (
-                        <img src={bannerUrl} alt="Banner" />
+                        <a href="https://bazar.grupomarlan.com.br/" rel="noopener noreferrer">
+                            <img src={bannerUrl} alt="Banner" />
+                        </a>
                     )}
                 </DialogContent>
             </Dialog>
         );
     }
+    
     
 
     const fetchCidades = async (term: string) => {
