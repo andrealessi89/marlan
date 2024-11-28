@@ -64,6 +64,7 @@ export default function ModalSub({ tipo }: ModalSubProps) {
                     ) : (
                         <a href="https://bazar.grupomarlan.com.br/" rel="noopener noreferrer">
                             <img src={bannerUrl} alt="Banner" />
+                            <center>Acessar Catálogo</center>
                         </a>
                     )}
                 </DialogContent>
