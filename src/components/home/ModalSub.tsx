@@ -54,6 +54,20 @@ export default function ModalSub({ tipo }: ModalSubProps) {
     ) : (
         <img src={bannerUrl} alt="Banner" />
     )}
+
+    if (tipo === "vip") {
+        return (
+            <Dialog open={isOpen}>
+                <DialogContent className="p-4">
+                    {loadingBanner ? (
+                        <div className="spinner">Carregando banner...</div>
+                    ) : (
+                        <img src={bannerUrl} alt="Banner" />
+                    )}
+                </DialogContent>
+            </Dialog>
+        );
+    }
     
 
     const fetchCidades = async (term: string) => {

@@ -68,7 +68,7 @@ function Banner() {
         <strong>Formas de Pagamento: </strong>Pix, Dinheiro, Cartão de Débito e Crédito em até 6x sem juros com Parcelas mínima de R$50,00
       </div>
       <div className="text-center mt-4">
-        <Link href="https://www.youtube.com/watch?v=cpK_BcY2cVk">
+        <Link href="https://www.youtube.com/shorts/QvllF6j-fQg">
           <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
             <FaVideo className="mr-2" />
             Aprenda a usar o catálogo
