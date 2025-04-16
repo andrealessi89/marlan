@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { FaVideo, FaRuler } from 'react-icons/fa';
+import axios from 'axios';
 
 function Banner() {
   const [bannerUrl, setBannerUrl] = useState('/images/banner.jpg'); // URL padrão
@@ -40,24 +41,24 @@ function Banner() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch('/api/frases');
-        if (response.ok) {
-          const data = await response.json();
-          // Mapeia os resultados para o formato esperado pelo dangerouslySetInnerHTML
-          const formattedMessages = data.map((item: { frase: string }) => ({
-            __html: item.frase,
-          }));
-          setMessages(formattedMessages);
-        }
+        const { data } = await axios.get<{ frase: string }[]>('/api/frases', {
+          headers: { 'Cache-Control': 'no-store' }
+        });
+        // Mapeia os resultados para o formato esperado pelo dangerouslySetInnerHTML
+        const formattedMessages = data.map(item => ({
+          __html: item.frase
+        }));
+        setMessages(formattedMessages);
       } catch (error) {
         console.error("Erro ao buscar mensagens:", error);
       } finally {
         setLoadingMessages(false);
       }
     };
-
+  
     fetchMessages();
   }, []);
+  
 
   // Configura a rotação das mensagens se houver dados
   useEffect(() => {
