@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export function useExibirPrecos(pollInterval = 10000) {
+export function useExibirPrecos() {
   const [showPrices, setShowPrices] = useState<boolean>(true);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export function useExibirPrecos(pollInterval = 10000) {
             },
           }
         );
-        console.log(data);
+        console.log("[useExibirPrecos] data:", data);
         if (isMounted) {
           setShowPrices(data[0]?.exibir_precos === 1);
         }
@@ -28,13 +28,13 @@ export function useExibirPrecos(pollInterval = 10000) {
         console.error("Erro ao buscar exibir_precos:", err);
       }
     };
+
     fetchConfig();
-    const intervalId = setInterval(fetchConfig, pollInterval);
+
     return () => {
       isMounted = false;
-      clearInterval(intervalId);
     };
-  }, [pollInterval]);
+  }, []);
 
   return showPrices;
 }
