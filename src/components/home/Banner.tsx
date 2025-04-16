@@ -42,7 +42,9 @@ function Banner() {
     const fetchMessages = async () => {
       try {
         const { data } = await axios.get<{ frase: string }[]>('/api/frases', {
-          headers: { 'Cache-Control': 'no-store' }
+          headers: {
+            "Cache-Control": "no-store, no-cache, must-revalidate",
+          },
         });
         // Mapeia os resultados para o formato esperado pelo dangerouslySetInnerHTML
         const formattedMessages = data.map(item => ({
