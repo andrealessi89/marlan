@@ -19,7 +19,7 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        const response = await fetch('/api/configuracoes');
+        const response = await fetch('/api/configuracoes', { cache: 'no-store' });
         if (response.ok) {
           const data = await response.json();
           setExibirPrecos(data[0].exibir_precos === 1 || data[0].exibir_precos === true);
@@ -30,9 +30,10 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
         setLoading(false);
       }
     };
-
+  
     fetchConfig();
   }, []);
+  
 
   return (
     <ConfigContext.Provider value={{ exibirPrecos, loading }}>
