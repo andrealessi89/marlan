@@ -28,12 +28,8 @@ export function useExibirPrecos(pollInterval = 10000) {
         console.error("Erro ao buscar exibir_precos:", err);
       }
     };
-
-    // primeira chamada
     fetchConfig();
-    // polling
     const intervalId = setInterval(fetchConfig, pollInterval);
-
     return () => {
       isMounted = false;
       clearInterval(intervalId);
