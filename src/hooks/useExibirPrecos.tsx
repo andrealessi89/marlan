@@ -1,26 +1,42 @@
+// src/hooks/useExibirPrecos.tsx
 "use client";
+
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 export function useExibirPrecos(pollInterval = 10000) {
   const [showPrices, setShowPrices] = useState<boolean>(true);
 
   useEffect(() => {
-    let mounted = true;
+    let isMounted = true;
+
     const fetchConfig = async () => {
       try {
-        const res = await fetch("/api/configuracoes", { cache: "no-store" });
-        const data = await res.json();
-        console.log(data);
-        if (!mounted) return;
-        setShowPrices(data[0]?.exibir_precos === 1);
-      } catch {
-        // falha silênciosa
+        const { data } = await axios.get<{ exibir_precos: number }[]>(
+          "/api/configuracoes",
+          {
+            headers: {
+              "Cache-Control": "no-store, no-cache, must-revalidate",
+            },
+          }
+        );
+        if (isMounted) {
+          setShowPrices(data[0]?.exibir_precos === 1);
+        }
+      } catch (err) {
+        console.error("Erro ao buscar exibir_precos:", err);
       }
     };
 
+    // primeira chamada
     fetchConfig();
-    const iv = setInterval(fetchConfig, pollInterval);
-    return () => { mounted = false; clearInterval(iv); };
+    // polling
+    const intervalId = setInterval(fetchConfig, pollInterval);
+
+    return () => {
+      isMounted = false;
+      clearInterval(intervalId);
+    };
   }, [pollInterval]);
 
   return showPrices;
