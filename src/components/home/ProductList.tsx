@@ -16,14 +16,16 @@ const ProductList = ({ products, filters }) => {
     useEffect(() => {
         const filteredProducts = products.filter(product => {
             return (
-                (!filters.brand || product.marca === filters.brand) &&
-                (!filters.article || product.artigo === filters.article) &&
-                (!filters.gender || product.genero === filters.gender) &&
-                (!filters.size || product.tamanho.split(", ").includes(filters.size)) &&
-                (!filters.minPrice || product.preco >= Number(filters.minPrice)) &&
-                (!filters.maxPrice || product.preco <= Number(filters.maxPrice))
-            ); 
-        });
+              (!filters.brand || product.marca === filters.brand) &&
+              (!filters.article || product.artigo === filters.article) &&
+              (!filters.gender || product.genero === filters.gender) &&
+              (!filters.size || product.tamanho.split(", ").includes(filters.size)) &&
+              (!filters.minPrice || product.preco >= Number(filters.minPrice)) &&
+              (!filters.maxPrice || product.preco <= Number(filters.maxPrice)) &&
+              (!filters.referencia || product.referencia.toLowerCase().includes(filters.referencia.toLowerCase()))
+            );
+          });
+          
 
         setTotalFilterProduct(filteredProducts.length);
         setVisibleProducts(filteredProducts.slice(0, loadedItems));

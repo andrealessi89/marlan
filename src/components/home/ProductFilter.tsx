@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useConfig } from '@/providers/ConfigProvider';
 
 interface ProductFilterProps {
   onChange: (filterType: string, value: any) => void;
@@ -22,6 +23,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
   onClearFilters,
   onClose
 }) => {
+  const [selectedReferencia, setSelectedReferencia] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedArticle, setSelectedArticle] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
@@ -30,6 +32,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
   const [maxPrice, setMaxPrice] = useState('');
 
   const handleClearFilters = () => {
+    onChange('referencia', '');
     onChange('brand', '');
     onChange('article', '');
     onChange('gender', '');
@@ -37,6 +40,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     onChange('minPrice', '');
     onChange('maxPrice', '');
 
+    setSelectedReferencia('');
     setSelectedBrand('');
     setSelectedArticle('');
     setSelectedGender('');
@@ -49,7 +53,9 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     }
   };
 
+
   const handleApplyFilters = () => {
+    onChange('referencia', selectedReferencia);
     onChange('brand', selectedBrand);
     onChange('article', selectedArticle);
     onChange('gender', selectedGender);
@@ -59,8 +65,27 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     if (onClose) onClose();
   };
 
+  const { exibirPrecos } = useConfig();
+
+
   return (
+
+
     <div className="space-y-4">
+
+      <div>
+        <Label htmlFor="referencia">Referência</Label>
+        <Input
+          id="referencia"
+          name="referencia"
+          type="text"
+          value={selectedReferencia}
+          onChange={(e) => setSelectedReferencia(e.target.value)}
+          placeholder="Digite a referência"
+          className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+        />
+      </div>
+
       <div>
         <Label htmlFor="brand">Marca</Label>
         <select id="brand" name="brand" value={selectedBrand} onChange={e => setSelectedBrand(e.target.value)} className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
@@ -101,30 +126,40 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         </select>
       </div>
 
-      <div>
-        <Label htmlFor="minPrice">Preço Mínimo</Label>
-        <Input
-          id="minPrice"
-          name="minPrice"
-          type="number"
-          value={minPrice}
-          onChange={e => setMinPrice(e.target.value)}
-          placeholder="R$ min"
-          className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-        />
-      </div>
 
       <div>
-        <Label htmlFor="maxPrice">Preço Máximo</Label>
-        <Input
-          id="maxPrice"
-          name="maxPrice"
-          type="number"
-          value={maxPrice}
-          onChange={e => setMaxPrice(e.target.value)}
-          placeholder="R$ max"
-          className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-        />
+        {exibirPrecos && (
+          <>
+            <Label htmlFor="minPrice">Preço Mínimo</Label>
+            <Input
+              id="minPrice"
+              name="minPrice"
+              type="number"
+              value={minPrice}
+              onChange={e => setMinPrice(e.target.value)}
+              placeholder="R$ min"
+              className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            />
+          </>
+        )}
+      </div>
+
+
+      <div>
+        {exibirPrecos && (
+          <>
+            <Label htmlFor="maxPrice">Preço Máximo</Label>
+            <Input
+              id="maxPrice"
+              name="maxPrice"
+              type="number"
+              value={maxPrice}
+              onChange={e => setMaxPrice(e.target.value)}
+              placeholder="R$ max"
+              className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            />
+          </>
+        )}
       </div>
 
 

@@ -7,6 +7,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
+import { useConfig } from '@/providers/ConfigProvider';
 
 interface ProductCardProps {
   image: string;
@@ -23,6 +24,7 @@ interface ProductCardProps {
 
 const ProductCard = forwardRef<HTMLElement, ProductCardProps>(
   ({ image, description }, ref:any) => {
+    const { exibirPrecos } = useConfig();
     
   const [isOpen, setIsOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -62,9 +64,13 @@ const ProductCard = forwardRef<HTMLElement, ProductCardProps>(
           <p>Tamanhos: {description.tamanho}</p>
           <p>Gênero: {description.genero}</p>
           <p>Marca: {description.marca}</p>
-          <p className="text-gray-900 font-bold">
-            Preço: <span className="text-green-600 text-xl ml-1">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(description.preco)}</span>
-          </p>
+          {exibirPrecos && (
+              <p className="text-gray-900 font-bold">
+                Preço: <span className="text-green-600 text-xl ml-1">
+                  {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(description.preco)}
+                </span>
+              </p>
+            )}
         </div>
       </div>
       <Button onClick={() => setIsOpen(true)} className="bg-white hover:bg-red-700 text-red-600 hover:text-white rounded-full p-3 absolute bottom-4 right-4 transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl">

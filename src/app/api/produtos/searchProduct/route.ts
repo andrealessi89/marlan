@@ -23,6 +23,7 @@ export async function GET(request: NextRequest) {
         let valores: any[] = [];
 
         // Dinamicamente adicionando condições baseadas em parâmetros fornecidos
+        // Dentro do loop que itera sobre as chaves dos parâmetros
         Object.keys(parametros).forEach(chave => {
             const valor = parametros[chave as keyof typeof parametros];
             if (valor) {
@@ -36,17 +37,22 @@ export async function GET(request: NextRequest) {
                         valores.push(valor);
                         break;
                     case 'cores':
-                        // A cor deve ser uma das cores listadas na string 'cores', separadas por vírgulas
                         sql += ` AND FIND_IN_SET(?, REPLACE(cores, ' ', ''))`;
                         valores.push(valor);
                         break;
+                    case 'referencia':
+                        // Aqui usamos LIKE para permitir busca parcial
+                        sql += ' AND referencia LIKE ?';
+                        valores.push(`%${valor}%`);
+                        break;
                     default:
-                        // Para outros casos, simplesmente filtre por igualdade
+                        // Para os demais filtros, filtramos por igualdade
                         sql += ` AND ${chave} = ?`;
                         valores.push(valor);
                 }
             }
         });
+
 
         const results = await query(sql, valores as any[]);
         return new NextResponse(JSON.stringify(results), { status: 200, headers: { "Content-Type": "application/json" } });

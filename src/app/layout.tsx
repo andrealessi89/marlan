@@ -6,6 +6,7 @@ import TanstackProvider from "@/providers/TanstackProvider";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Script from "next/script";
+import { ConfigProvider } from '@/providers/ConfigProvider'; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,7 +44,9 @@ export default function RootLayout({
         height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe></noscript>
         <ToastContainer />
         <TanstackProvider>
+          <ConfigProvider>
           <div>{children}</div>
+          </ConfigProvider>
         </TanstackProvider>
       </body>
     </html>

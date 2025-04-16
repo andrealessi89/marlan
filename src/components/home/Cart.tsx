@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react';
-import { FaTrashAlt, FaShoppingCart, FaHeart  } from 'react-icons/fa';
+import { FaTrashAlt, FaShoppingCart, FaHeart } from 'react-icons/fa';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
 import { Input } from '../ui/input';
 import Link from 'next/link';
+import { useConfig } from '@/providers/ConfigProvider';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
+  const { exibirPrecos } = useConfig();
 
   useEffect(() => {
     loadCartItems();
@@ -59,7 +61,7 @@ const Cart = () => {
       <SheetTrigger asChild>
         <Button onClick={handleCartButtonClick} className="bg-pink-500 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded inline-flex items-center">
           Lista de desejos
-          <FaHeart  className="" size={30} />
+          <FaHeart className="" size={30} />
         </Button>
       </SheetTrigger>
       <SheetContent style={{ maxHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#f8f9fa' }} className="shadow-xl rounded-t-lg p-4">
@@ -80,8 +82,9 @@ const Cart = () => {
                 <img alt="Product" className="h-10 w-10 rounded-full object-cover" src={item.imagem} />
                 <div>
                   <p className="text-sm font-medium text-gray-900">Ref: {item.referencia} / {item.size}</p>
-                  
-                  <p className="text-sm text-gray-500"> R$ {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(item.preco))}</p>
+                  {exibirPrecos && (
+                    <p className="text-sm text-gray-500"> R$ {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(item.preco))}</p>
+                  )}
                   <p className="text-sm text-gray-500">Cor: {item.color}</p>
                   <div className="flex items-center space-x-2">
                     <p className="text-sm text-gray-500">Qtd:</p>
@@ -95,7 +98,8 @@ const Cart = () => {
           ))}
         </div>
         <div className="mt-4 p-4 bg-white rounded shadow-sm">
-          <div className="flex flex-col justify-between space-y-2"> 
+        {exibirPrecos && (
+          <div className="flex flex-col justify-between space-y-2">
             <span className="text-lg font-medium text-gray-900 text-lg">Preço original: R$ {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(subtotal))}</span>
             {discount > 0 && (
               <>
@@ -104,6 +108,7 @@ const Cart = () => {
               </>
             )}
           </div>
+        )}
         </div>
 
       </SheetContent>
