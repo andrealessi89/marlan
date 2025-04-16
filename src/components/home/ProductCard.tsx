@@ -25,6 +25,8 @@ interface ProductCardProps {
 const ProductCard = forwardRef<HTMLElement, ProductCardProps>(
   ({ image, description }, ref:any) => {
     const { exibirPrecos } = useConfig();
+
+    console.log(exibirPrecos)
     
   const [isOpen, setIsOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
