@@ -20,6 +20,7 @@ export function useExibirPrecos(pollInterval = 10000) {
             },
           }
         );
+        console.log(data);
         if (isMounted) {
           setShowPrices(data[0]?.exibir_precos === 1);
         }
